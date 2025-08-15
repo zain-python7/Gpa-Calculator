@@ -16,6 +16,7 @@
       background-color: #f0f2f5;
     }
 
+    
     #main {
       border-top: 5px solid #222;
       background-color: red;
@@ -24,8 +25,9 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      flex-wrap: wrap;
-      text-decoration: none;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      gap: 15px;
     }
 
     #main .title {
@@ -33,7 +35,8 @@
       font-weight: bold;
       text-transform: uppercase;
       letter-spacing: 2px;
-      text-decoration: none;
+      white-space: nowrap;
+      flex-shrink: 0;
     }
 
     #main .tag {
@@ -42,15 +45,15 @@
       font-size: 1rem;
       padding: 10px 22px;
       border-radius: 8px;
-      text-align: center;
       font-weight: bold;
-      transition: all 0.3s ease;
       border: 2px solid #fff200;
       box-shadow: 0 0 8px #fff20060;
       text-transform: uppercase;
       letter-spacing: 0.8px;
       cursor: pointer;
       text-decoration: none;
+      transition: all 0.3s ease;
+      white-space: nowrap;
       flex-shrink: 0;
     }
 
@@ -61,17 +64,17 @@
       transform: scale(1.05);
     }
 
+    /* NAV */
     #subheader {
       background-color: #222;
       padding: 12px 0;
       display: flex;
       justify-content: center;
-      gap: 40px;
+      flex-wrap: wrap;
+      gap: 20px;
       font-weight: bold;
-      font-size: 1.25rem;
-      user-select: none;
+      font-size: 1.2rem;
       box-shadow: 0 4px 12px rgba(255, 242, 0, 0.3);
-      letter-spacing: 1.2px;
     }
 
     #subheader a {
@@ -91,6 +94,7 @@
       text-shadow: 0 0 8px red;
     }
 
+    
     .container {
       background: white;
       padding: 30px 40px;
@@ -215,6 +219,7 @@
 </head>
 <body>
 
+ 
   <div id="main">
     <div class="title">Calculator.gpt</div>
     <div>
@@ -222,11 +227,13 @@
     </div>
   </div>
 
+  
   <div id="subheader">
     <a href="index.html" id="gpa-calculator-link">GPA Calculator</a>
     <a href="gpaplanner.html" id="gpa-planner-link">GPA Planner</a>
   </div>
 
+  
   <div class="container">
     <h1 class="planner-title">GPA Planning Calculator</h1>
     <p class="description">
@@ -262,48 +269,45 @@
     <div id="planner-result"></div>
   </div>
 
+  
   <script>
-    document.getElementById('calculate-planner').addEventListener('click', function() {
+    document.getElementById('calculate-planner').addEventListener('click', function () {
       const currentGPA = parseFloat(document.getElementById('current-gpa').value);
       const targetGPA = parseFloat(document.getElementById('target-gpa').value);
       const currentCredits = parseFloat(document.getElementById('current-credits').value);
       const additionalCredits = parseFloat(document.getElementById('additional-credits').value);
-      const resultBox = document.getElementById('planner-result');
 
       if (
-        isNaN(currentGPA) || currentGPA < 0 || currentGPA > 4.3 ||
-        isNaN(targetGPA) || targetGPA < 0 || targetGPA > 4.3 ||
-        isNaN(currentCredits) || currentCredits < 0 ||
-        isNaN(additionalCredits) || additionalCredits <= 0
+        isNaN(currentGPA) || isNaN(targetGPA) || isNaN(currentCredits) || isNaN(additionalCredits) ||
+        currentGPA < 0 || targetGPA < 0 || currentCredits < 0 || additionalCredits <= 0
       ) {
-        resultBox.style.color = 'red';
-        resultBox.textContent = 'Please enter valid numbers. GPA range: 0 to 4.3, Credits must be positive.';
+        document.getElementById('planner-result').textContent = 'Please enter valid, positive values in all fields.';
         return;
       }
 
-      const numerator = (targetGPA * (currentCredits + additionalCredits)) - (currentGPA * currentCredits);
-      const requiredGPA = numerator / additionalCredits;
+      const totalQualityPoints = currentGPA * currentCredits;
+      const requiredTotalPoints = targetGPA * (currentCredits + additionalCredits);
+      const requiredGPA = (requiredTotalPoints - totalQualityPoints) / additionalCredits;
+
+      let resultText = '';
 
       if (requiredGPA > 4.3) {
-        resultBox.style.color = 'red';
-        resultBox.textContent = `Sorry, achieving a target GPA of ${targetGPA} is not possible with the given credits.`;
-      } else if (requiredGPA <= 0) {
-        resultBox.style.color = 'green';
-        resultBox.textContent = `You have already achieved your target GPA of ${targetGPA}. Keep it up!`;
+        resultText = `It's not possible to reach your target GPA with the given credit plan.`;
+      } else if (requiredGPA < 0) {
+        resultText = `You have already surpassed your target GPA.`;
       } else {
-        resultBox.style.color = 'black';
-        resultBox.textContent = `To achieve a target GPA of ${targetGPA}, you need to earn a GPA of at least ${requiredGPA.toFixed(2)} in the next ${additionalCredits} credits.`;
+        resultText = `You need an average GPA of ${requiredGPA.toFixed(2)} in your next ${additionalCredits} credits.`;
       }
+
+      document.getElementById('planner-result').textContent = resultText;
     });
 
-    document.getElementById('clear-planner').addEventListener('click', function() {
+    document.getElementById('clear-planner').addEventListener('click', function () {
       document.getElementById('current-gpa').value = '';
       document.getElementById('target-gpa').value = '';
       document.getElementById('current-credits').value = '';
       document.getElementById('additional-credits').value = '';
-      const resultBox = document.getElementById('planner-result');
-      resultBox.textContent = '';
-      resultBox.style.color = 'black';
+      document.getElementById('planner-result').textContent = '';
     });
   </script>
 </body>

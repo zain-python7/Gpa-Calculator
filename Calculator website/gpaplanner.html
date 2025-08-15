@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>GPA Planning Calculator</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f2f5;
+    }
+
+   
+    #main {
+      border-top: 5px solid #222;
+      background-color: red;
+      padding: 20px;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      text-decoration: none;
+    }
+
+    #main .title {
+      font-size: 2rem;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      text-decoration: none;
+    }
+
+    #main .tag {
+  background-color: #111;
+  color: #fff200;
+  font-size: 1rem;
+  padding: 10px 22px;
+  border-radius: 8px;
+  text-align: center;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  border: 2px solid #fff200;
+  box-shadow: 0 0 8px #fff20060;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  cursor: pointer;
+   text-decoration: none;
+}
+
+#main .tag:hover {
+  background-color: #fff200;
+  color: #111;
+  box-shadow: 0 0 15px #fff200, 0 0 30px #fff20090;
+  transform: scale(1.05);
+}
+
+
+ 
+    #subheader {
+      background-color: #222;
+      padding: 12px 0;
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      font-weight: bold;
+      font-size: 1.25rem;
+      user-select: none;
+      box-shadow: 0 4px 12px rgba(255, 242, 0, 0.3);
+      letter-spacing: 1.2px;
+    }
+
+    #subheader a {
+      color: #fff200;
+      text-decoration: none;
+      padding: 8px 20px;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 8px #fff200;
+    }
+
+    #subheader a:hover {
+      color: red;
+      background-color: #fff200;
+      box-shadow: 0 0 20px #fff200, 0 0 30px red;
+      transform: scale(1.15);
+      text-shadow: 0 0 8px red;
+    }
+
+    
+    .container {
+      background: white;
+      padding: 30px 40px;
+      max-width: 500px;
+      width: 100%;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      margin: 40px auto;
+    }
+
+    h1.planner-title {
+      margin-bottom: 15px;
+      color: #222;
+      text-align: center;
+      font-weight: normal;
+    }
+
+    p.description {
+      margin-bottom: 30px;
+      color: #555;
+      text-align: center;
+      font-size: 1rem;
+      line-height: 1.4;
+    }
+
+    .input-row {
+      margin-bottom: 20px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .input-row label {
+      margin-bottom: 6px;
+      font-weight: bold;
+      color: #333;
+      font-size: 0.95rem;
+    }
+
+    .input-row input {
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      transition: border-color 0.3s ease;
+    }
+
+    .input-row input:focus {
+      outline: none;
+      border-color: #007bff;
+    }
+
+    .button-row {
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    .button-row button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 12px 22px;
+      margin: 8px;
+      font-size: 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .button-row button:hover {
+      background-color: #0056b3;
+    }
+
+    #planner-result {
+      margin-top: 30px;
+      font-weight: bold;
+      text-align: center;
+      font-size: 18px;
+      color: #333;
+      min-height: 1.5em;
+    }
+  </style>
+</head>
+<body>
+
+  
+  <div id="main">
+    <div class="title">Calculator.gpt</div>
+    <div>
+  <a href="home.html" class="tag">Educational Purposes</a>
+</div>
+  </div>
+
+  
+  <div id="subheader">
+    <a href="home.html" id="gpa-calculator-link">GPA Calculator</a>
+    <a href="gpaplanner.html" id="gpa-planner-link">GPA Planner</a>
+  </div>
+
+  
+  <div class="container">
+    <h1 class="planner-title">GPA Planning Calculator</h1>
+    <p class="description">
+      The calculator can be used to determine the minimum GPA required in future courses
+      to raise GPA to a desired level or maintain the GPA above a certain level.
+    </p>
+
+    <div class="input-row">
+      <label for="current-gpa">Current GPA</label>
+      <input type="number" step="0.01" id="current-gpa" placeholder="e.g., 3.02" min="0" max="4.3" />
+    </div>
+
+    <div class="input-row">
+      <label for="target-gpa">Target GPA</label>
+      <input type="number" step="0.01" id="target-gpa" placeholder="e.g., 3.00" min="0" max="4.3" />
+    </div>
+
+    <div class="input-row">
+      <label for="current-credits">Current Credits</label>
+      <input type="number" step="1" id="current-credits" placeholder="e.g., 15" min="0" />
+    </div>
+
+    <div class="input-row">
+      <label for="additional-credits">Additional Credits (next courses)</label>
+      <input type="number" step="1" id="additional-credits" placeholder="e.g., 15" min="1" />
+    </div>
+
+    <div class="button-row">
+      <button id="calculate-planner">Calculate Required GPA</button>
+      <button id="clear-planner">Clear</button>
+    </div>
+
+    <div id="planner-result"></div>
+  </div>
+
+  
+  <script>
+    document.getElementById('calculate-planner').addEventListener('click', function() {
+      const currentGPA = parseFloat(document.getElementById('current-gpa').value);
+      const targetGPA = parseFloat(document.getElementById('target-gpa').value);
+      const currentCredits = parseFloat(document.getElementById('current-credits').value);
+      const additionalCredits = parseFloat(document.getElementById('additional-credits').value);
+      const resultBox = document.getElementById('planner-result');
+
+      if (
+        isNaN(currentGPA) || currentGPA < 0 || currentGPA > 4.3 ||
+        isNaN(targetGPA) || targetGPA < 0 || targetGPA > 4.3 ||
+        isNaN(currentCredits) || currentCredits < 0 ||
+        isNaN(additionalCredits) || additionalCredits <= 0
+      ) {
+        resultBox.style.color = 'red';
+        resultBox.textContent = 'Please enter valid numbers. GPA range: 0 to 4.3, Credits must be positive.';
+        return;
+      }
+
+      const numerator = (targetGPA * (currentCredits + additionalCredits)) - (currentGPA * currentCredits);
+      const requiredGPA = numerator / additionalCredits;
+
+      if (requiredGPA > 4.3) {
+        resultBox.style.color = 'red';
+        resultBox.textContent = `Sorry, achieving a target GPA of ${targetGPA} is not possible with the given credits.`;
+      } else if (requiredGPA <= 0) {
+        resultBox.style.color = 'green';
+        resultBox.textContent = `You have already achieved your target GPA of ${targetGPA}. Keep it up!`;
+      } else {
+        resultBox.style.color = 'black';
+        resultBox.textContent = `To achieve a target GPA of ${targetGPA}, you need to earn a GPA of at least ${requiredGPA.toFixed(2)} in the next ${additionalCredits} credits.`;
+      }
+    });
+
+    document.getElementById('clear-planner').addEventListener('click', function() {
+      document.getElementById('current-gpa').value = '';
+      document.getElementById('target-gpa').value = '';
+      document.getElementById('current-credits').value = '';
+      document.getElementById('additional-credits').value = '';
+      const resultBox = document.getElementById('planner-result');
+      resultBox.textContent = '';
+      resultBox.style.color = 'black';
+    });
+  </script>
+</body>
+</html>

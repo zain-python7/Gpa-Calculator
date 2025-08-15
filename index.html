@@ -25,7 +25,7 @@
   }
   </script>
   <style>
-   * {
+* {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -44,7 +44,9 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  gap: 15px;
 }
 
 #main .title {
@@ -52,6 +54,8 @@ body {
   font-weight: bold;
   text-transform: uppercase;
   letter-spacing: 2px;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 #main .tag {
@@ -60,15 +64,16 @@ body {
   font-size: 1rem;
   padding: 10px 22px;
   border-radius: 8px;
-  text-align: center;
   font-weight: bold;
-  transition: all 0.3s ease;
   border: 2px solid #fff200;
   box-shadow: 0 0 8px #fff20060;
   text-transform: uppercase;
   letter-spacing: 0.8px;
   cursor: pointer;
   text-decoration: none;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 #main .tag:hover {
@@ -84,12 +89,10 @@ body {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 30px;
+  gap: 20px;
   font-weight: bold;
-  font-size: 1.25rem;
-  user-select: none;
+  font-size: 1.2rem;
   box-shadow: 0 4px 12px rgba(255, 242, 0, 0.3);
-  letter-spacing: 1.2px;
 }
 
 #subheader a {
@@ -112,41 +115,55 @@ body {
 .center-box,
 #summary-box,
 #result-area {
-  width: 90%;
+  background-color: white;
   max-width: 600px;
+  width: 90%;
   margin: 30px auto;
   padding: 20px;
-  background-color: white;
   border-radius: 10px;
-  border: 2px solid #000;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
 }
 
 .input-row {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   gap: 10px;
-  margin-bottom: 15px;
+  margin-bottom: 12px;
+  align-items: center;
 }
 
 .input-row input,
 .input-row select {
+  width: 100%;
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 4px;
   box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
   transition: box-shadow 0.3s ease;
-  width: 100%;
+  font-size: 1rem;
+}
+
+.input-row.header-row {
+  font-weight: bold;
+  text-align: center;
+  user-select: none;
+}
+
+.input-row.header-row > div {
+  padding: 8px 0;
 }
 
 #buttons {
   text-align: center;
   margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: nowrap;
+  gap: 12px;
 }
 
 #buttons button {
   padding: 10px 16px;
-  margin: 5px;
   font-size: 16px;
   border: none;
   background-color: #444;
@@ -154,6 +171,8 @@ body {
   border-radius: 6px;
   cursor: pointer;
   transition: all 0.3s ease;
+  min-width: 120px;
+  flex-shrink: 0;
 }
 
 #buttons button:hover {
@@ -162,8 +181,14 @@ body {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
-#result-area h2 {
+#summary-box h3 {
   margin-bottom: 10px;
+}
+
+#divider-line {
+  text-align: center;
+  margin: 20px auto;
+  font-size: 16px;
 }
 
 #result-area table {
@@ -186,36 +211,58 @@ body {
   font-weight: bold;
 }
 
-#summary-box h3 {
-  margin-bottom: 10px;
-}
+@media (max-width: 600px) {
+  #main {
+    padding: 10px 15px;
+  }
 
-#divider-line {
-  text-align: center;
-  margin: 20px auto;
-  font-size: 16px;
-  display: none;
-}
+  #main .title {
+    font-size: 1.4rem;
+  }
 
-#result-area,
-#summary-box,
-#divider-line {
-  display: block;
-}
+  #main .tag {
+    font-size: 0.85rem;
+    padding: 6px 14px;
+  }
 
-@media (min-width: 600px) {
   .input-row {
-    flex-direction: row;
+    grid-template-columns: repeat(3, 1fr);
   }
 
-  .input-row input,
-  .input-row select {
-    width: auto;
-    flex: 1;
+  #buttons {
+    gap: 8px;
+  }
+
+  #buttons button {
+    min-width: 80px;
+    font-size: 14px;
+    padding: 8px 10px;
+  }
+
+  #result-area,
+  #summary-box,
+  .center-box {
+    width: 95%;
+    padding: 15px;
   }
 }
 
+@media (max-width: 360px) {
+  #buttons button {
+    min-width: 70px;
+    font-size: 13px;
+    padding: 6px 8px;
+  }
 
+  #main .title {
+    font-size: 1.2rem;
+  }
+
+  #main .tag {
+    font-size: 0.8rem;
+    padding: 5px 10px;
+  }
+}
   </style>
 </head>
 <body>
@@ -223,20 +270,19 @@ body {
  <div id="main">
     <div class="title">Calculator.gpt</div>
     <div>
-  <a href="index.html" class="tag">Educational Purposes</a>
-</div>
+      <a href="index.html" class="tag">Educational Purposes</a>
+    </div>
   </div>
   <div id="subheader">
     <a href="index.html" id="gpa-calculator-link">GPA Calculator</a>
     <a href="gpaplanner.html" id="gpa-planner-link">GPA Planner</a>
   </div>
 
-  <!-- GPA Calculator Interface -->
   <div class="center-box">
-    <div class="input-row" style="font-weight: bold; text-align: center;">
-      <div style="flex: 1;">Course</div>
-      <div style="flex: 1;">Credit</div>
-      <div style="flex: 1;">Grade</div>
+    <div class="input-row header-row">
+      <div>Course</div>
+      <div>Credit</div>
+      <div>Grade</div>
     </div>
     <div id="row-container"></div>
 
@@ -247,21 +293,18 @@ body {
     </div>
   </div>
 
-  <!-- Summary Box -->
-  <div id="summary-box">
+  <div id="summary-box" style="display:none;">
     <h3>Result Summary</h3>
     <p id="gpa-output">GPA: </p>
     <p id="credit-output">Total Credits: </p>
   </div>
 
-  <!-- Divider Line -->
-  <div id="divider-line">
+  <div id="divider-line" style="display:none;">
     <strong>Result GPA: <span id="line-gpa"></span></strong><br>
     <strong>Total Credits: <span id="line-credits"></span></strong>
   </div>
 
-  <!-- Detailed Table -->
-  <div id="result-area">
+  <div id="result-area" style="display:none;">
     <h2>Course Breakdown</h2>
     <table>
       <thead>
@@ -276,7 +319,6 @@ body {
     </table>
   </div>
 
-  <!-- JS -->
   <script>
     window.onload = function () {
       const gradeOptions = ["-", "A+", "A", "A-", "B+", "B", "B-", "C+", "C", "C-", "D+", "D", "D-", "F"];
@@ -301,6 +343,7 @@ body {
         const creditInput = document.createElement("input");
         creditInput.type = "number";
         creditInput.placeholder = "Credit";
+        creditInput.min = "0";
 
         const gradeSelect = document.createElement("select");
         gradeOptions.forEach(grade => {
@@ -319,86 +362,65 @@ body {
       function clearAllInputs() {
         rowContainer.innerHTML = "";
         for (let i = 0; i < 5; i++) addCourseRow();
-        document.getElementById("result-area").style.display = "none";
         document.getElementById("summary-box").style.display = "none";
         document.getElementById("divider-line").style.display = "none";
+        document.getElementById("result-area").style.display = "none";
       }
 
       function calculateGPA() {
-        const rows = document.querySelectorAll(".input-row");
-        const summaryBody = document.getElementById("summary-table-body");
-        summaryBody.innerHTML = "";
-
         let totalPoints = 0;
         let totalCredits = 0;
+        const results = [];
 
+        const rows = rowContainer.querySelectorAll(".input-row");
         rows.forEach(row => {
-          const courseInput = row.querySelector('input[type="text"]');
-          const creditInput = row.querySelector('input[type="number"]');
-          const gradeSelect = row.querySelector('select');
+          const inputs = row.querySelectorAll("input, select");
+          const courseName = inputs[0].value.trim();
+          const credit = parseFloat(inputs[1].value);
+          const grade = inputs[2].value;
 
-          if (!courseInput || !creditInput || !gradeSelect) return;
-
-          const course = courseInput.value.trim() || "N/A";
-          const credit = parseFloat(creditInput.value);
-          const grade = gradeSelect.value;
-
-          if (!isNaN(credit) && credit > 0 && grade !== "-" && gradePointMap.hasOwnProperty(grade)) {
+          if (courseName && !isNaN(credit) && credit > 0 && grade !== "-") {
             const gradePoint = gradePointMap[grade];
-            const totalForCourse = gradePoint * credit;
+            const points = gradePoint * credit;
+            totalPoints += points;
             totalCredits += credit;
-            totalPoints += totalForCourse;
-
-            const tr = document.createElement("tr");
-            tr.innerHTML = `
-              <td>${course}</td>
-              <td>${credit}</td>
-              <td>${grade}</td>
-              <td>${credit} × ${gradePoint} = ${totalForCourse.toFixed(2)}</td>
-            `;
-            summaryBody.appendChild(tr);
+            results.push({ courseName, credit, grade, gradePoint });
           }
         });
 
         if (totalCredits === 0) {
-          alert("Please enter at least one valid credit and grade.");
-          document.getElementById("gpa-output").textContent = "";
-          document.getElementById("credit-output").textContent = "";
-          document.getElementById("line-gpa").textContent = "";
-          document.getElementById("line-credits").textContent = "";
-          summaryBody.innerHTML = "";
+          alert("Please enter valid courses with credits and grades.");
           return;
         }
 
         const gpa = (totalPoints / totalCredits).toFixed(2);
 
-        const totalRow = document.createElement("tr");
-        totalRow.innerHTML = `
-          <td style="font-weight:bold;">Total</td>
-          <td style="font-weight:bold;">${totalCredits}</td>
-          <td></td>
-          <td style="font-weight:bold;">Overall GPA: ${gpa}</td>
-        `;
-        summaryBody.appendChild(totalRow);
-
         document.getElementById("gpa-output").textContent = `GPA: ${gpa}`;
         document.getElementById("credit-output").textContent = `Total Credits: ${totalCredits}`;
+
         document.getElementById("line-gpa").textContent = gpa;
         document.getElementById("line-credits").textContent = totalCredits;
+
+        const tbody = document.getElementById("summary-table-body");
+        tbody.innerHTML = "";
+        results.forEach(item => {
+          const tr = document.createElement("tr");
+          tr.innerHTML = `<td>${item.courseName}</td><td>${item.credit}</td><td>${item.grade}</td><td>${item.gradePoint.toFixed(1)}</td>`;
+          tbody.appendChild(tr);
+        });
 
         document.getElementById("summary-box").style.display = "block";
         document.getElementById("divider-line").style.display = "block";
         document.getElementById("result-area").style.display = "block";
       }
 
-      for (let i = 0; i < 5; i++) addCourseRow();
-
-      document.getElementById("calculate").addEventListener("click", calculateGPA);
-      document.getElementById("clear").addEventListener("click", clearAllInputs);
       document.getElementById("add").addEventListener("click", addCourseRow);
+      document.getElementById("clear").addEventListener("click", clearAllInputs);
+      document.getElementById("calculate").addEventListener("click", calculateGPA);
+
+      clearAllInputs();
     };
   </script>
+
 </body>
 </html>
-
-

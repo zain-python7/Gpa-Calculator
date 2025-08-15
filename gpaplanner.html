@@ -5,45 +5,41 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>GPA Planning Calculator</title>
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+   * {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f0f2f5;
-    }
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f0f2f5;
+}
 
-   
-    #main {
-      border-top: 5px solid #222;
-      background-color: red;
-      padding: 20px;
-      color: white;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      text-decoration: none;
-    }
+#main {
+  border-top: 5px solid #222;
+  background-color: red;
+  padding: 20px;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
 
-    #main .title {
-      font-size: 2rem;
-      font-weight: bold;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      text-decoration: none;
-    }
+#main .title {
+  font-size: 2rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
 
-    #main .tag {
+#main .tag {
   background-color: #111;
   color: #fff200;
   font-size: 1rem;
   padding: 10px 22px;
   border-radius: 8px;
-  text-align: center;
   font-weight: bold;
   transition: all 0.3s ease;
   border: 2px solid #fff200;
@@ -51,7 +47,7 @@
   text-transform: uppercase;
   letter-spacing: 0.8px;
   cursor: pointer;
-   text-decoration: none;
+  text-decoration: none;
 }
 
 #main .tag:hover {
@@ -61,119 +57,129 @@
   transform: scale(1.05);
 }
 
+#subheader {
+  background-color: #222;
+  padding: 12px 0;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 30px;
+  font-weight: bold;
+  font-size: 1.25rem;
+  user-select: none;
+  box-shadow: 0 4px 12px rgba(255, 242, 0, 0.3);
+  letter-spacing: 1.2px;
+}
 
- 
-    #subheader {
-      background-color: #222;
-      padding: 12px 0;
-      display: flex;
-      justify-content: center;
-      gap: 40px;
-      font-weight: bold;
-      font-size: 1.25rem;
-      user-select: none;
-      box-shadow: 0 4px 12px rgba(255, 242, 0, 0.3);
-      letter-spacing: 1.2px;
-    }
+#subheader a {
+  color: #fff200;
+  text-decoration: none;
+  padding: 8px 20px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 8px #fff200;
+}
 
-    #subheader a {
-      color: #fff200;
-      text-decoration: none;
-      padding: 8px 20px;
-      border-radius: 8px;
-      transition: all 0.3s ease;
-      box-shadow: 0 0 8px #fff200;
-    }
+#subheader a:hover {
+  color: red;
+  background-color: #fff200;
+  box-shadow: 0 0 20px #fff200, 0 0 30px red;
+  transform: scale(1.15);
+  text-shadow: 0 0 8px red;
+}
 
-    #subheader a:hover {
-      color: red;
-      background-color: #fff200;
-      box-shadow: 0 0 20px #fff200, 0 0 30px red;
-      transform: scale(1.15);
-      text-shadow: 0 0 8px red;
-    }
+.container {
+  background: white;
+  padding: 30px 40px;
+  max-width: 500px;
+  width: 90%;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  margin: 40px auto;
+}
 
-    
-    .container {
-      background: white;
-      padding: 30px 40px;
-      max-width: 500px;
-      width: 100%;
-      border-radius: 10px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      margin: 40px auto;
-    }
+h1.planner-title {
+  margin-bottom: 15px;
+  color: #222;
+  text-align: center;
+  font-weight: normal;
+}
 
-    h1.planner-title {
-      margin-bottom: 15px;
-      color: #222;
-      text-align: center;
-      font-weight: normal;
-    }
+p.description {
+  margin-bottom: 30px;
+  color: #555;
+  text-align: center;
+  font-size: 1rem;
+  line-height: 1.4;
+}
 
-    p.description {
-      margin-bottom: 30px;
-      color: #555;
-      text-align: center;
-      font-size: 1rem;
-      line-height: 1.4;
-    }
+.input-row {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+}
 
-    .input-row {
-      margin-bottom: 20px;
-      display: flex;
-      flex-direction: column;
-    }
+.input-row label {
+  margin-bottom: 6px;
+  font-weight: bold;
+  color: #333;
+  font-size: 0.95rem;
+}
 
-    .input-row label {
-      margin-bottom: 6px;
-      font-weight: bold;
-      color: #333;
-      font-size: 0.95rem;
-    }
+.input-row input {
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  transition: border-color 0.3s ease;
+}
 
-    .input-row input {
-      padding: 10px;
-      font-size: 16px;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-      transition: border-color 0.3s ease;
-    }
+.input-row input:focus {
+  outline: none;
+  border-color: #007bff;
+}
 
-    .input-row input:focus {
-      outline: none;
-      border-color: #007bff;
-    }
+.button-row {
+  text-align: center;
+  margin-top: 10px;
+}
 
-    .button-row {
-      text-align: center;
-      margin-top: 10px;
-    }
+.button-row button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 12px 22px;
+  margin: 8px;
+  font-size: 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
 
-    .button-row button {
-      background-color: #007bff;
-      color: white;
-      border: none;
-      padding: 12px 22px;
-      margin: 8px;
-      font-size: 16px;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
+.button-row button:hover {
+  background-color: #0056b3;
+}
 
-    .button-row button:hover {
-      background-color: #0056b3;
-    }
+#planner-result {
+  margin-top: 30px;
+  font-weight: bold;
+  text-align: center;
+  font-size: 18px;
+  color: #333;
+  min-height: 1.5em;
+}
 
-    #planner-result {
-      margin-top: 30px;
-      font-weight: bold;
-      text-align: center;
-      font-size: 18px;
-      color: #333;
-      min-height: 1.5em;
-    }
+@media (max-width: 500px) {
+  .container {
+    padding: 25px 20px;
+  }
+
+  .button-row button {
+    width: 100%;
+    margin: 6px 0;
+  }
+}
+
   </style>
 </head>
 <body>
@@ -275,4 +281,5 @@
   </script>
 </body>
 </html>
+
 
